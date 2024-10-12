@@ -2,14 +2,14 @@ package Login;
 
 import java.util.Scanner;
 
-public class loginF {
+public class LoginF {
 
     Scanner ler = new Scanner(System.in);
-    funcionario func = new funcionario();
+    Funcionario func = new Funcionario();
     
     public void loginFunc(){
 
-        System.out.println("Login de Administrador");
+        System.out.println("Login de funcionario");
         System.out.print("Login: ");
         String logFunc = ler.nextLine();
         System.out.print("Senha: ");
@@ -27,6 +27,7 @@ public class loginF {
                 if (count==3){
                     System.out.println("Voce possui "+count+" tentativa(s).");
                 }
+                ler.nextLine();
                 System.out.print("Login: ");
                 logFunc = ler.nextLine();
                 System.out.print("Senha: ");
@@ -48,19 +49,20 @@ public class loginF {
         ler.close();
     }
 
-    public static void main(String[] args) {
+    public void main(String[] args) {
 
-        loginF log = new loginF();
-        funcionario func = new funcionario();
-        primeiroAcessoF primFunc = new primeiroAcessoF();
+        LoginF logF = new LoginF();
+        Funcionario func = new Funcionario();
+        PrimeiroAcessoF primFunc = new PrimeiroAcessoF();
 
         if (func.quantidadeF == 0){
+            System.out.println("Nao foram encontrados funcionarios cadastrados.");
             primFunc.CadFunc();
             primFunc.setIdF();
             primFunc.setQuantidadeF();
             //System.out.println("Qtd de funcionarios: "+func.quantidadeF);
         } else {
-            log.loginFunc();
+            logF.loginFunc();
         }
     }
 }

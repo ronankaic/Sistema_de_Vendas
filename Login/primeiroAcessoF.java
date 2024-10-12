@@ -3,15 +3,20 @@ package Login;
 import java.util.Scanner;
 import java.util.Random;
 
-public class primeiroAcessoF {
+public class PrimeiroAcessoF {
 
-    funcionario func = new funcionario();
-    admin ad = new admin();
+    Funcionario func = new Funcionario();
+    Admin ad = new Admin();
 
     public void setIdF(){
         Random rand = new Random();
         int limite = 100000; // gera um inteiro aleatório entre 0 e 100000
         int randNumF = rand.nextInt(limite);
+        if (randNumF < 10000){ //ID de funcioinário obrigatoriamente > 10.000, ou seja, tem 5 algarismos ou +
+            do{
+                randNumF = rand.nextInt(limite);
+            } while(randNumF < 10000);
+        }
 
         this.func.idF = randNumF;
         if (randNumF == ad.idA){ //caso gere um ID igual ao id de algum admin
@@ -25,6 +30,7 @@ public class primeiroAcessoF {
 
         Scanner ler = new Scanner(System.in);
         
+        //ler.next();
         System.out.println("\nCadastro de Funcionario");
         System.out.print("Login(seu nome): ");
         func.nomeF = ler.nextLine();
@@ -61,15 +67,18 @@ public class primeiroAcessoF {
 
     public void setQuantidadeF(){
         this.func.quantidadeF++;
-        System.out.println("Funcionario adicionado");
+        System.out.println("Funcionario cadastrado.");
         System.out.println("Qtd de func: "+this.func.quantidadeF);
     }
 
     public void main(String[] args) {
 
-        primeiroAcessoF primFunc = new primeiroAcessoF();
-        primFunc.CadFunc();
-        primFunc.setIdF();
-        primFunc.setQuantidadeF();
+        //PrimeiroAcessoF primFunc = new PrimeiroAcessoF();
+        //primFunc.CadFunc();
+        CadFunc();
+        //primFunc.setIdF();
+        setIdF();
+        //primFunc.setQuantidadeF();
+        setQuantidadeF();
     }
 }

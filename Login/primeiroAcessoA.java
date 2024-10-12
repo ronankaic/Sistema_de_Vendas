@@ -3,15 +3,20 @@ package Login;
 import java.util.Scanner;
 import java.util.Random;
 
-public class primeiroAcessoA {
+public class PrimeiroAcessoA {
 
-    admin ad = new admin();
-    funcionario func = new funcionario();
+    Admin ad = new Admin();
+    Funcionario func = new Funcionario();
     
     public void setIdA(){
         Random rand = new Random();
         int limite = 100000; // gera um inteiro aleatório entre 0 e 100000
         int randNumA = rand.nextInt(limite);
+        if (randNumA > 10000){ //ID de admin obrigatoriamente < 10.000, ou seja, tem até 4 algarismos
+            do{
+                randNumA = rand.nextInt(limite);
+            } while(randNumA > 10000);
+        }
 
         this.ad.idA = randNumA;
         if (randNumA == func.idF){ //caso gere um ID igual ao id de algum funcionario
@@ -25,6 +30,7 @@ public class primeiroAcessoA {
 
         Scanner ler = new Scanner(System.in);
         
+        //ler.next();
         System.out.println("Cadastro de Administrador");
         System.out.print("Login(seu nome): ");
         ad.nomeA = ler.nextLine();
@@ -60,7 +66,7 @@ public class primeiroAcessoA {
 
     public void setQuantidadeA(){
         this.ad.quantidadeA++;
-        System.out.println("Admin adicionado");
+        System.out.println("Admin cadastrado.");
         System.out.println("Qtd de admins: "+this.ad.quantidadeA);
     }
 
@@ -115,11 +121,14 @@ public class primeiroAcessoA {
 
     public void main(String[] args) {
 
-        primeiroAcessoA primAc = new primeiroAcessoA();
-        dados dd = new dados();
-        primAc.CadAd();
-        primAc.setIdA();
-        primAc.setQuantidadeA();
+        //PrimeiroAcessoA primAc = new PrimeiroAcessoA();
+        Dados dd = new Dados();
+        //primAc.CadAd();
+        CadAd();
+        //primAc.setIdA();
+        setIdA();
+        //primAc.setQuantidadeA();
+        setQuantidadeA();
         dd.pedirPor();
     }
 }

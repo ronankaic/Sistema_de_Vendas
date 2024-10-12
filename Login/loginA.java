@@ -8,10 +8,10 @@ import java.util.Scanner;
      ^ Pedir por qual vai ser o valor usado para calcular taxa de cartão(apenas o login de dono pode dar entrada nesse valor ou alterá-lo) > débito e crédito
       ^ Pedir pela chave pix que vai ser usada*/
 
-public class loginA {
+public class LoginA {
 
     Scanner ler = new Scanner(System.in);
-    admin ad = new admin();
+    Admin ad = new Admin();
 
     public void loginAdmin(){
 
@@ -55,21 +55,22 @@ public class loginA {
         ler.close();
     }
 
-    public static void main(String[] args) {
+    public void main(String[] args) {
 
-        loginA log = new loginA();
-        admin ad = new admin();
-        dados dd = new dados();
-        primeiroAcessoA primAc = new primeiroAcessoA();
+        LoginA logA = new LoginA();
+        Admin ad = new Admin();
+        Dados dd = new Dados();
+        PrimeiroAcessoA primAc = new PrimeiroAcessoA();
 
         if (ad.quantidadeA == 0){
+            System.out.println("Nao foram encontrados administradores cadastrados. Por favor, cadastre ao menos um administrador.");
             primAc.CadAd();
             primAc.setIdA();
             primAc.setQuantidadeA();
             dd.pedirPor();
             //System.out.println("Qtd de admins: "+ad.quantidadeA); //imprime 0 mesmo que o primeiroAcesso imprima 1 ou a quuantidade atual
         } else {
-            log.loginAdmin();
+            logA.loginAdmin();
         }
         
     }
