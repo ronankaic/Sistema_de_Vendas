@@ -7,6 +7,7 @@ public class PrimeiroAcessoF {
 
     Funcionario func = new Funcionario();
     Admin ad = new Admin();
+    Scanner ler = new Scanner(System.in);
 
     public void setIdF(){
         Random rand = new Random();
@@ -23,15 +24,12 @@ public class PrimeiroAcessoF {
             randNumF = rand.nextInt(limite);
             this.func.idF = randNumF;
         }
-        System.out.println("ID de funcionario: "+func.idF);
+        System.out.println("ID de funcionário: "+func.idF);
     }
 
     public void CadFunc(){ //public ou private?
 
-        Scanner ler = new Scanner(System.in);
-        
-        //ler.next();
-        System.out.println("\nCadastro de Funcionario");
+        System.out.println("\nCadastro de funcionário");
         System.out.print("Login(seu nome): ");
         func.nomeF = ler.nextLine();
         System.out.print("Senha(sequência numérica): "); //como limitar pra 7 digitos? >> mensagem de erro se passar de 7
@@ -62,13 +60,12 @@ public class PrimeiroAcessoF {
 
             System.out.println("Login e senha verificados.");
         }
-        ler.close();
     }
 
     public void setQuantidadeF(){
         this.func.quantidadeF++;
-        System.out.println("Funcionario cadastrado.");
-        System.out.println("Qtd de func: "+this.func.quantidadeF);
+        System.out.println("Funcionário cadastrado.");
+        System.out.println("Qtd de func: "+this.func.quantidadeF+"\n");
     }
 
     public void main(String[] args) {

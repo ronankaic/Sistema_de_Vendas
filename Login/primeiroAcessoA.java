@@ -7,6 +7,7 @@ public class PrimeiroAcessoA {
 
     Admin ad = new Admin();
     Funcionario func = new Funcionario();
+    Scanner ler = new Scanner(System.in);
     
     public void setIdA(){
         Random rand = new Random();
@@ -19,7 +20,7 @@ public class PrimeiroAcessoA {
         }
 
         this.ad.idA = randNumA;
-        if (randNumA == func.idF){ //caso gere um ID igual ao id de algum funcionario
+        if (randNumA == func.idF){ //caso gere um ID igual ao id de algum funcionário
             randNumA = rand.nextInt(limite);
             this.ad.idA = randNumA;
         }
@@ -28,10 +29,7 @@ public class PrimeiroAcessoA {
 
     public void CadAd(){ //public ou private?
 
-        Scanner ler = new Scanner(System.in);
-        
-        //ler.next();
-        System.out.println("Cadastro de Administrador");
+        System.out.println("Cadastro de administrador");
         System.out.print("Login(seu nome): ");
         ad.nomeA = ler.nextLine();
         System.out.print("Senha(sequência numérica): "); //como limitar pra 7 digitos? >> mensagem de erro se passar de 7
@@ -61,13 +59,12 @@ public class PrimeiroAcessoA {
 
             System.out.println("Login e senha verificados.");
         }
-        ler.close();
     }
 
     public void setQuantidadeA(){
         this.ad.quantidadeA++;
-        System.out.println("Admin cadastrado.");
-        System.out.println("Qtd de admins: "+this.ad.quantidadeA);
+        System.out.println("Administrador cadastrado.");
+        System.out.println("Qtd de admins: "+this.ad.quantidadeA+"\n");
     }
 
     /*public void CadFunc(){ //public ou private?
@@ -129,6 +126,16 @@ public class PrimeiroAcessoA {
         setIdA();
         //primAc.setQuantidadeA();
         setQuantidadeA();
-        dd.pedirPor();
+        if (dd.taxaDebString == "" || dd.taxaCredString == "" || dd.email == ""){ //verificação se já tem as info cadastradas
+            dd.pedirPor();
+        } else {
+            System.out.println("Foram encontradas informações cadastradas.");
+            System.out.printf("Taxa de débito: "+dd.taxaDeb+"\nTaxa de crédito: "+dd.taxaCred+"\nEmail para pix: ", dd.email);
+            System.out.println("Deseja sobrescrevê-las?");
+            char sobr = ler.next().charAt(0);
+            if (sobr == 's'){ //botão
+                dd.pedirPor();
+            }
+        }
     }
 }

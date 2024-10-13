@@ -15,7 +15,7 @@ public class LoginA {
 
     public void loginAdmin(){
 
-        System.out.println("Login de Administrador");
+        System.out.println("Login de administrador");
         System.out.print("Login: ");
         String logAdmin = ler.nextLine();
         System.out.print("Senha: ");
@@ -31,7 +31,7 @@ public class LoginA {
             do{
                 System.out.println("Tente novamente.");
                 if (count==3){
-                    System.out.println("Voce possui "+count+" tentativa(s).");
+                    System.out.println("Você possui "+count+" tentativa(s).");
                 }
                 ler.nextLine();
                 System.out.print("Login: ");
@@ -40,19 +40,21 @@ public class LoginA {
                 senhAdmin = ler.nextInt();
 
                 count--;
-                System.out.println("\nVoce possui "+count+" tentativa(s).");
+                if (count !=3 && count != 0){
+                    System.out.println("Você possui "+count+" tentativa(s).");
+                }
                 if (count == 0){
                     System.out.println("Login negado.");
-                    //fechar programa
+                    //voltar para tela inicial
                     break;
                 }
             } while (!logAdmin.equals(ad.nomeA) || senhAdmin != ad.senhaA);
 
             if (logAdmin.equals(ad.nomeA) && senhAdmin == ad.senhaA){
                 System.out.println("Login bem-sucedido.");
+                //função para acessar o programa
             }
         }
-        ler.close();
     }
 
     public void main(String[] args) {
@@ -63,12 +65,19 @@ public class LoginA {
         PrimeiroAcessoA primAc = new PrimeiroAcessoA();
 
         if (ad.quantidadeA == 0){
-            System.out.println("Nao foram encontrados administradores cadastrados. Por favor, cadastre ao menos um administrador.");
+            System.out.println("Não foram encontrados administradores cadastrados. Por favor, cadastre ao menos um administrador.");
             primAc.CadAd();
             primAc.setIdA();
             primAc.setQuantidadeA();
-            dd.pedirPor();
-            //System.out.println("Qtd de admins: "+ad.quantidadeA); //imprime 0 mesmo que o primeiroAcesso imprima 1 ou a quuantidade atual
+            if (dd.taxaDebString == "" || dd.taxaCredString == "" || dd.email == ""){ //verificação se já tem as info cadastradas
+                dd.pedirPor();
+            } else {
+                System.out.println("Foram encontradas informações cadastradas. Deseja conferir?");
+                char conf = ler.next().charAt(0);
+                if (conf == 's'){ //botão
+                    System.out.printf("Taxa de débito: "+dd.taxaDeb+"\nTaxa de crédito: "+dd.taxaCred+"\nEmail para pix: ", dd.email);
+                }
+            }
         } else {
             logA.loginAdmin();
         }

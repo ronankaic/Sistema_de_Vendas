@@ -9,7 +9,7 @@ public class LoginF {
     
     public void loginFunc(){
 
-        System.out.println("Login de funcionario");
+        System.out.println("Login de funcionário");
         System.out.print("Login: ");
         String logFunc = ler.nextLine();
         System.out.print("Senha: ");
@@ -25,7 +25,7 @@ public class LoginF {
             do{
                 System.out.println("Tente novamente.");
                 if (count==3){
-                    System.out.println("Voce possui "+count+" tentativa(s).");
+                    System.out.println("Você possui "+count+" tentativa(s).");
                 }
                 ler.nextLine();
                 System.out.print("Login: ");
@@ -34,19 +34,21 @@ public class LoginF {
                 senhFunc = ler.nextInt();
 
                 count--;
-                System.out.println("Voce possui "+count+" tentativa(s).");
+                if (count !=3 && count != 0){
+                    System.out.println("Você possui "+count+" tentativa(s).");
+                }
                 if (count == 0){
                     System.out.println("Login negado.");
-                    //o que fazer se o funcionário n conseguir logar? cotinuar executando o programa mas só com o admin operando ele? >> para diferenciar quem está usando, pedir o login em funcionalidades que requerem login de admin?
+                    //voltar para a tela inicial, se o usuário quiser tentar logar novamente, ele seleciona a opção
                     break;
                 }
             } while (!logFunc.equals(func.nomeF) || senhFunc != func.senhaF);
 
             if (logFunc.equals(func.nomeF) && senhFunc == func.senhaF){
                 System.out.println("Login bem-sucedido.");
+                //função para acessar o sistema
             }
         }
-        ler.close();
     }
 
     public void main(String[] args) {
@@ -56,11 +58,10 @@ public class LoginF {
         PrimeiroAcessoF primFunc = new PrimeiroAcessoF();
 
         if (func.quantidadeF == 0){
-            System.out.println("Nao foram encontrados funcionarios cadastrados.");
+            System.out.println("Não foram encontrados funcionários cadastrados.");
             primFunc.CadFunc();
             primFunc.setIdF();
             primFunc.setQuantidadeF();
-            //System.out.println("Qtd de funcionarios: "+func.quantidadeF);
         } else {
             logF.loginFunc();
         }

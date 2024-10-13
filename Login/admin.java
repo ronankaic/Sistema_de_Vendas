@@ -3,7 +3,7 @@ package Login;
 public class Admin {
     
     public String nomeA;
-    public int idA; //como gerar número aleatório?
+    public int idA;
     public int senhaA;
     public int quantidadeA = 0; //no máximo 2 administradores >> como por a restrição?
                            //^ mudar pra 1 pra testar o login mesmo, sem ser o cadastro
