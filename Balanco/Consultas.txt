@@ -1,0 +1,92 @@
+- Balanço de vendas no final do dia/mês/ano
+     ^ Pedir pelo login(funcionário também pode visualizar) pra acessar e somente com o login de dono poder alterar 
+     algum valor/nome/info geral
+     ^ Categorização por período > permitir ver todas(separadas por FP) as vendas e/ou apenas determinada FP
+     ^ Dias com todas as vendas e valor total por FP
+          ^ Valor total de vendas em dinheiro, cartão(débito e crédito) e pix
+     ^ Mês com separação de dias e apenas valor total de cada dia; assim como valor total por FP em todo o mês
+          ^ Permitir acessar o balanço do dia, se algum for clicado
+     ^ Ano com separação de meses e apenas valor total de cada mês; assim como valor total por FP em todo o ano
+          ^ Permitir acessar o balanço do mês, se algum for clicado
+opcional> ^ Permitir acessar o balanço por semestre, mas apenas dentro de cada ano(deve-se acessar o balanço ano e 
+          então do semestre, não sendo possível acessar o do semestre diretamente ou fora do ano desejado)
+
+Consultas SQL
+
+- Visualização de todas as vendas > automaticamente separadas por forma de pagamento
+SELECT * FROM VENDAS
+GROUP BY FP
+ORDER BY EXTRACT(MONTH FROM DTVENDA); >>melhor mês ou dia?
+
+- Visualização de acordo com forma de pagamento
+SELECT FP FROM VENDAS
+WHERE FP = 'Dinheiro';
+
+SELECT FP FROM VENDAS
+WHERE FP = 'Cartão'
+GROUP BY DEB, CRED; >> talvez seja melhor criar uma tabela para cartão e por como FK
+
+SELECT FP FROM VENDAS
+WHERE FP = 'Pix';
+
+- Visualização por dia com valor total vendido no dia
+SELECT EXTRACT(DAY FROM DTVENDA) FROM VENDAS
+WHERE (SELECT * FP FROM VENDAS
+    GROUP BY FP
+    SUM(valorTotal) AS 'Valor total vendido'
+    WHERE FP = 'Cartão' >> tabela separada
+    GROUP BY DEB, CRED);
+
+- Visualização por mês(com valor total vendido por FP) com separação de dias e valor total de cada um
+SELECT EXTRACT(MONTH FROM DTVENDA) FROM VENDAS
+WHERE(
+    SELECT * FP FROM VENDAS
+    GROUP BY FP
+    SUM(valorTotal) AS 'Valor total vendido'
+    WHERE FP = 'Cartão'
+    GROUP BY DEB, CRED;
+SELECT 'Dias' || EXTRACT(DAY FROM DTVENDA) || ' ' || 'Valor total vendido' || SUM(valorTotal) FROM VENDAS);
+
+>> se algum dia for clicado
+SELECT EXTRACT(DAY FROM DTVENDA) FROM VENDAS
+WHERE(
+    SELECT * FP FROM VENDAS
+    GROUP BY FP
+    SUM(valorTotal) AS 'Valor total vendido'
+    WHERE FP = 'Cartão'
+    GROUP BY DEB, CRED);
+
+- Visualização por ano(com valor total vendido por FP) com separação de meses e valor total de cada um
+SELECT EXTRACT(YEAR FROM DTVENDA) FROM VENDAS
+WHERE (
+    SELECT * FP FROM VENDAS
+    GROUP BY FP
+    SUM(valorTotal) AS 'Valor total vendido'
+    WHERE FP = 'Cartão'
+    GROUP BY DEB, CRED;
+SELECT 'Meses' || EXTRACT(MONTH FROM DTVENDA) || ' ' || 'Valor total vendido' || SUM(valorTotal) FROM VENDAS);
+
+>> se algum mês for clicado(também permitir acesso pelo semestre)
+SELECT EXTRACT(MONTH FROM DTVENDA) FROM VENDAS
+WHERE(
+    SELECT * FP FROM VENDAS
+    GROUP BY FP
+    SUM(valorTotal) AS 'Valor total vendido'
+    WHERE FP = 'Cartão'
+    GROUP BY DEB, CRED);
+
+>> Balanço do primeiro semestre
+SELECT FP, SUM(valorTotal)
+FROM VENDAS
+WHERE EXTRACT(MONTH FROM DTVENDA) IN (1,2,3,4,5,6);
+GROUP BY FP
+WHERE FP = 'Cartão'
+GROUP BY DEB, CRED;
+
+>> Balanço do segundo semestre
+SELECT FP, SUM(valorTotal)
+FROM VENDAS
+WHERE EXTRACT(MONTH FROM DTVENDA) IN (7,8,9,10,11,12);
+GROUP BY FP
+WHERE FP = 'Cartão'
+GROUP BY DEB, CRED;
