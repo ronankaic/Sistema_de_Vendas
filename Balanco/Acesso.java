@@ -14,14 +14,14 @@ public class Acesso {
         
         System.out.print("Seu ID: ");
         int id = ler.nextInt();
-        String nome = "Leticia";
-        this.ad.idA = id;
-        this.ad.nomeA = nome;
+        String nome = "Leticia"; //apagar
+        this.ad.idA = id; //
+        this.ad.nomeA = nome; //
 
-        if (id == ad.idA){
+        if (id == ad.idA){ //verificação no BD
             System.out.printf("Olá, "+ad.getNomeA()+ ". ");
             visualizacao();
-        } else if (id == func.idF){
+        } else if (id == func.idF){ //verificação no BD
             System.out.printf("Olá, "+func.getNomeF()+ ". ");
             visualizacao();
         } else {
@@ -31,16 +31,17 @@ public class Acesso {
 
     public void visualizacao(){
 
-        char vis;
+        int vis;
         
         /*comando para realizar a consulta de todas as vendas
          *  SELECT * saidas
             GROUP BY forma_pagamento
-            ORDER BY EXTRACT(MONTH FROM data_hora), EXTRACT(DAY FROM data_hora);
+            ORDER BY EXTRACT(MONTH FROM data_hora) AS 'mês', EXTRACT(DAY FROM data_hora) AS 'dia';
         */
 
+        System.out.println("Como deseja filtrar o balanço?");
         System.out.println("1 - Por forma de pagamento\n2 - Por dia\n3 - Por mês\n4 - Por ano"); //botões
-        vis = ler.next().charAt(0);
+        vis = ler.nextInt();
 
         switch (vis) {
             case 1: 

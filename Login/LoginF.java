@@ -15,7 +15,7 @@ public class LoginF {
         System.out.print("Senha: ");
         int senhFunc = ler.nextInt();
 
-        if (logFunc.equals(func.nomeF) && senhFunc == func.senhaF){
+        if (logFunc.equals(func.nomeF) && senhFunc == func.senhaF){ //verificação pelo BD sempre que tiver variável de 'Funcionario'
             System.out.println("Login bem-sucedido.");
         } else if (!logFunc.equals(func.nomeF) || senhFunc != func.senhaF){
             
@@ -39,14 +39,14 @@ public class LoginF {
                 }
                 if (count == 0){
                     System.out.println("Login negado.");
-                    //voltar para a tela inicial, se o usuário quiser tentar logar novamente, ele seleciona a opção
+                    //voltar para a tela inicial/Login.Main
                     break;
                 }
             } while (!logFunc.equals(func.nomeF) || senhFunc != func.senhaF);
 
             if (logFunc.equals(func.nomeF) && senhFunc == func.senhaF){
                 System.out.println("Login bem-sucedido.");
-                //função para acessar o sistema
+                //função para acessar o programa
             }
         }
     }
@@ -57,11 +57,9 @@ public class LoginF {
         Funcionario func = new Funcionario();
         PrimeiroAcessoF primFunc = new PrimeiroAcessoF();
 
-        if (func.quantidadeF == 0){
+        if (func.quantidadeF == 0){ //verificação pelo BD
             System.out.println("Não foram encontrados funcionários cadastrados.");
-            primFunc.CadFunc();
-            primFunc.setIdF();
-            primFunc.setQuantidadeF();
+            primFunc.main(args);
         } else {
             logF.loginFunc();
         }

@@ -1,9 +1,7 @@
 package Login;
 
 import java.util.Scanner;
-
 import Balanco.Acesso;
-
 import java.util.InputMismatchException;
 
 public class Main {

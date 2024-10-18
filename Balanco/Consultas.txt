@@ -5,11 +5,7 @@
      ^ Dias com todas as vendas e valor total por FP
           ^ Valor total de vendas em dinheiro, cartão(débito e crédito) e pix
      ^ Mês com separação de dias e apenas valor total de cada dia; assim como valor total por FP em todo o mês
-          ^ Permitir acessar o balanço do dia, se algum for clicado
      ^ Ano com separação de meses e apenas valor total de cada mês; assim como valor total por FP em todo o ano
-          ^ Permitir acessar o balanço do mês, se algum for clicado
-opcional> ^ Permitir acessar o balanço por semestre, mas apenas dentro de cada ano(deve-se acessar o balanço ano e 
-          então do semestre, não sendo possível acessar o do semestre diretamente ou fora do ano desejado)
 
 Consultas SQL
 

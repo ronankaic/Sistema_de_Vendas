@@ -2,7 +2,6 @@ package Login;
 
 import java.util.Scanner;
 
-
 /*- Abrir o programa > sistema de login
      ^ Ao abrir o programa pela primeira vez, registrar o login de admin/dono e então pedir o login de funcionário
      ^ Pedir por qual vai ser o valor usado para calcular taxa de cartão(apenas o login de dono pode dar entrada nesse valor ou alterá-lo) > débito e crédito
@@ -12,8 +11,6 @@ public class LoginA {
 
     Scanner ler = new Scanner(System.in);
     Admin ad = new Admin();
-    String permissaoLoginA;
-    //Acesso acess = new Acesso();
 
     public void loginAdmin(){
 
@@ -22,11 +19,9 @@ public class LoginA {
         String logAdmin = ler.nextLine();
         System.out.print("Senha: ");
         int senhAdmin = ler.nextInt();
-        //String permissaoLoginA;
 
-        if (logAdmin.equals(ad.nomeA) && senhAdmin == ad.senhaA){
+        if (logAdmin.equals(ad.nomeA) && senhAdmin == ad.senhaA){ //verificação pelo BD sempre que tiver variável de 'Admin'
             System.out.println("Login bem-sucedido.");
-            permissaoLoginA = "permitido";
         } else if (!logAdmin.equals(ad.nomeA) || senhAdmin != ad.senhaA){
             
             System.out.println("Login ou senha incorretos.");
@@ -49,15 +44,13 @@ public class LoginA {
                 }
                 if (count == 0){
                     System.out.println("Login negado.");
-                    permissaoLoginA = "negado";
-                    //voltar para tela inicial
+                    //voltar para a tela inicial/Login.Main
                     break;
                 }
             } while (!logAdmin.equals(ad.nomeA) || senhAdmin != ad.senhaA);
 
             if (logAdmin.equals(ad.nomeA) && senhAdmin == ad.senhaA){
                 System.out.println("Login bem-sucedido.");
-                permissaoLoginA = "permitido";
                 //função para acessar o programa
             }
         }
@@ -67,23 +60,11 @@ public class LoginA {
 
         LoginA logA = new LoginA();
         Admin ad = new Admin();
-        Dados dd = new Dados();
         PrimeiroAcessoA primAc = new PrimeiroAcessoA();
 
-        if (ad.quantidadeA == 0){
+        if (ad.quantidadeA == 0){ //verificação pelo BD se a qtd de admins é 0
             System.out.println("Não foram encontrados administradores cadastrados. Por favor, cadastre ao menos um administrador.");
-            primAc.CadAd();
-            primAc.setIdA();
-            primAc.setQuantidadeA();
-            if (dd.taxaDebString == "" || dd.taxaCredString == "" || dd.email == ""){ //verificação se já tem as info cadastradas
-                dd.pedirPor();
-            } else {
-                System.out.println("Foram encontradas informações cadastradas. Deseja conferir?");
-                char conf = ler.next().charAt(0);
-                if (conf == 's'){ //botão
-                    System.out.printf("Taxa de débito: "+dd.taxaDeb+"\nTaxa de crédito: "+dd.taxaCred+"\nEmail para pix: ", dd.email);
-                }
-            }
+            primAc.main(args);
         } else {
             logA.loginAdmin();
         }
