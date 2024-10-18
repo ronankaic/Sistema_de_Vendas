@@ -1,6 +1,9 @@
 package Login;
 
 import java.util.Scanner;
+
+import Balanco.Acesso;
+
 import java.util.InputMismatchException;
 
 public class Main {
@@ -47,6 +50,15 @@ public class Main {
                             LoginF logF = new LoginF();
                             logF.main(args);
                         }
+
+                        System.out.println("7 - Realizar venda\n8 - Balanço de vendas");
+                        int opc = ler.nextInt();
+                        if (opc == 7){
+                            //chamar programa de realização de vendas
+                        } else if (opc == 8){
+                            Acesso ac = new Acesso();
+                            ac.acessar();
+                        }
                         break;
                     case 4:
                         System.out.println("O programa será encerrado.");
@@ -65,7 +77,3 @@ public class Main {
         ler.close();
     }
 }
-//conversão de string para double das taxas de cartão para poderem ser usadas;
-//verificação de existência das informações pós cadastro de admin para serem solicitadas apenas se não existirem;
-//Concerto do erro do Scanner ao chamar uma segunda função consecutiva;
-//mensagem e encerramento do programa caso seja dado uma letra em vez de número em opcao >> não consegui colocar o try-catch em loop

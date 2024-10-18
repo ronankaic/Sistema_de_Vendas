@@ -12,6 +12,8 @@ public class LoginA {
 
     Scanner ler = new Scanner(System.in);
     Admin ad = new Admin();
+    String permissaoLoginA;
+    //Acesso acess = new Acesso();
 
     public void loginAdmin(){
 
@@ -20,9 +22,11 @@ public class LoginA {
         String logAdmin = ler.nextLine();
         System.out.print("Senha: ");
         int senhAdmin = ler.nextInt();
+        //String permissaoLoginA;
 
         if (logAdmin.equals(ad.nomeA) && senhAdmin == ad.senhaA){
             System.out.println("Login bem-sucedido.");
+            permissaoLoginA = "permitido";
         } else if (!logAdmin.equals(ad.nomeA) || senhAdmin != ad.senhaA){
             
             System.out.println("Login ou senha incorretos.");
@@ -45,6 +49,7 @@ public class LoginA {
                 }
                 if (count == 0){
                     System.out.println("Login negado.");
+                    permissaoLoginA = "negado";
                     //voltar para tela inicial
                     break;
                 }
@@ -52,6 +57,7 @@ public class LoginA {
 
             if (logAdmin.equals(ad.nomeA) && senhAdmin == ad.senhaA){
                 System.out.println("Login bem-sucedido.");
+                permissaoLoginA = "permitido";
                 //função para acessar o programa
             }
         }

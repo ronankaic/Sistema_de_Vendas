@@ -27,12 +27,12 @@ public class PrimeiroAcessoA {
         System.out.println("ID de administrador: "+ad.idA);
     }
 
-    public void CadAd(){ //public ou private?
+    public void CadAd(){
 
         System.out.println("Cadastro de administrador");
         System.out.print("Login(seu nome): ");
         ad.nomeA = ler.nextLine();
-        System.out.print("Senha(sequência numérica): "); //como limitar pra 7 digitos? >> mensagem de erro se passar de 7
+        System.out.print("Senha(sequência numérica): ");
         ad.senhaA = ler.nextInt();
 
         System.out.println("Login e senha definidos. Por favor, digite-os novamente para verificação.\n");
@@ -67,74 +67,34 @@ public class PrimeiroAcessoA {
         System.out.println("Qtd de admins: "+this.ad.quantidadeA+"\n");
     }
 
-    /*public void CadFunc(){ //public ou private?
-
-        Scanner ler = new Scanner(System.in);
+    public void tabelaAdmin(){
         
-        System.out.println("\nCadastro de Funcionario");
-        System.out.print("Login(seu nome): ");
-        if (ler.hasNextLine()) { // Verifica se há uma linha disponível
-            func.nomeF = ler.nextLine(); //problema com o nextLine, não está recebendo o input << concertar
-        } else {
-            System.out.println("Entrada inválida. Por favor, digite seu login.");
-            return; // Sai da função se a entrada for inválida
-        }
-        System.out.print("Senha(sequência numérica): "); //como limitar pra 7 digitos? >> mensagem de erro se passar de 7
-        func.senhaF = ler.nextInt();
-        ler.nextLine();
+        /*CREATE TABLE IF NOT EXISTS Admin (id INTEGER PRIMARY KEY,
+        nome TEXT,
+        senha INTEGER PRIMARY KEY,
+        quantidade INTEGER AUTOINCREMENT*/
 
-        System.out.println("Login e senha definidos. Por favor, digite-os novamente para verificação.\n");
-        System.out.print("Digite seu login: ");
-        String VerLoginF = ler.next();
-        System.out.print("Digite sua senha: ");
-        int VerSenhaF = ler.nextInt();
-
-        if (VerLoginF.equals(func.nomeF) && VerSenhaF == func.senhaF){
-
-            System.out.println("Login e senha verificados.");
-            
-        } else if (!VerLoginF.equals(func.nomeF) || VerSenhaF != func.senhaF){
-
-            System.out.println("Login ou senha incorretos.");
-
-            do{
-                System.out.println("Tente novamente.\n");
-                System.out.print("Login: ");
-                VerLoginF = ler.next();
-                System.out.print("Senha: ");
-                VerSenhaF = ler.nextInt();
-            } while (!VerLoginF.equals(func.nomeF) || VerSenhaF != func.senhaF);
-
-            System.out.println("Login e senha verificados.");
-        }
-        ler.close();
+        /*INSERT INTO Admin (id, nome, senha)
+         * VALUES (ad.idA, ad.nomeA, ad.senhaA)
+        */
     }
-
-    public void setQuantidadeF(){
-        this.func.quantidadeF++;
-        System.out.println("Funcionario adicionado");
-        System.out.println("Qtd de func: "+this.func.quantidadeF);
-    }*/
 
     public void main(String[] args) {
 
-        //PrimeiroAcessoA primAc = new PrimeiroAcessoA();
         Dados dd = new Dados();
-        //primAc.CadAd();
         CadAd();
-        //primAc.setIdA();
         setIdA();
-        //primAc.setQuantidadeA();
         setQuantidadeA();
+        tabelaAdmin();
         if (dd.taxaDebString == "" || dd.taxaCredString == "" || dd.email == ""){ //verificação se já tem as info cadastradas
-            dd.pedirPor();
+            dd.main();
         } else {
             System.out.println("Foram encontradas informações cadastradas.");
             System.out.printf("Taxa de débito: "+dd.taxaDeb+"\nTaxa de crédito: "+dd.taxaCred+"\nEmail para pix: ", dd.email);
             System.out.println("Deseja sobrescrevê-las?");
             char sobr = ler.next().charAt(0);
             if (sobr == 's'){ //botão
-                dd.pedirPor();
+                dd.main();
             }
         }
     }

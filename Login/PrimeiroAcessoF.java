@@ -27,12 +27,12 @@ public class PrimeiroAcessoF {
         System.out.println("ID de funcionário: "+func.idF);
     }
 
-    public void CadFunc(){ //public ou private?
+    public void CadFunc(){
 
         System.out.println("\nCadastro de funcionário");
         System.out.print("Login(seu nome): ");
         func.nomeF = ler.nextLine();
-        System.out.print("Senha(sequência numérica): "); //como limitar pra 7 digitos? >> mensagem de erro se passar de 7
+        System.out.print("Senha(sequência numérica): ");
         func.senhaF = ler.nextInt();
         ler.nextLine();
 
@@ -68,14 +68,24 @@ public class PrimeiroAcessoF {
         System.out.println("Qtd de func: "+this.func.quantidadeF+"\n");
     }
 
+    public void tabelaFunc(){
+        
+        /*CREATE TABLE IF NOT EXISTS Funcionario (id INTEGER PRIMARY KEY,
+        nome TEXT,
+        senha INTEGER PRIMARY KEY,
+        quantidade INTEGER AUTOINCREMENT*/
+
+        /*INSERT INTO Funcionario (id, nome, senha)
+         * VALUES (func.idA, func.nomeF, func.senhaF)
+        */
+    }
+
     public void main(String[] args) {
 
-        //PrimeiroAcessoF primFunc = new PrimeiroAcessoF();
-        //primFunc.CadFunc();
         CadFunc();
-        //primFunc.setIdF();
         setIdF();
-        //primFunc.setQuantidadeF();
         setQuantidadeF();
+        tabelaFunc();
+
     }
 }

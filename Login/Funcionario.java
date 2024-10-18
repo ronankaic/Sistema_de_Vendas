@@ -5,7 +5,7 @@ public class Funcionario {
     public String nomeF;
     public int idF;
     public int senhaF;
-    public int quantidadeF = 0; //quantos funcionários quiser
+    public int quantidadeF;
 
     public String getNomeF() { return nomeF; }
     public int getIdF() { return idF; }

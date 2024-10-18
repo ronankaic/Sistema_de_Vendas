@@ -1,32 +1,95 @@
 package Balanco;
 
-import Login.LoginA;
+import Login.Admin;
+import Login.Funcionario;
+import java.util.Scanner;
 
 public class Acesso {
 
-    /*é melhor pedir um login geral, aí a pessoa fornece o ID dela, o sistema confere se é admin ou funionário e então
-     * faz autenticação e aí permite visualizar/alterar
-     * ou
-     * login separado pra admin e funcionário
-     */
+    Admin ad = new Admin();
+    Funcionario func = new Funcionario();
+    Scanner ler = new Scanner(System.in);
 
-    LoginA logA = new LoginA();
-
-    public void acessoA(){
+    public void acessar(){
         
-        logA.loginAdmin();
-        if (logA.permissaoLogin.equals("Permitido")){
-            //
+        System.out.print("Seu ID: ");
+        int id = ler.nextInt();
+        String nome = "Leticia";
+        this.ad.idA = id;
+        this.ad.nomeA = nome;
+
+        if (id == ad.idA){
+            System.out.printf("Olá, "+ad.getNomeA()+ ". ");
+            visualizacao();
+        } else if (id == func.idF){
+            System.out.printf("Olá, "+func.getNomeF()+ ". ");
+            visualizacao();
         } else {
-            //Acesso negado
+            System.out.println("ID não reconhecido.");
         }
     }
 
-    public void acessoF(){
-        //
+    public void visualizacao(){
+
+        char vis;
+        
+        /*comando para realizar a consulta de todas as vendas
+         *  SELECT * saidas
+            GROUP BY forma_pagamento
+            ORDER BY EXTRACT(MONTH FROM data_hora), EXTRACT(DAY FROM data_hora);
+        */
+
+        System.out.println("1 - Por forma de pagamento\n2 - Por dia\n3 - Por mês\n4 - Por ano"); //botões
+        vis = ler.next().charAt(0);
+
+        switch (vis) {
+            case 1: 
+                System.out.println("5 - Dinheiro\n6 - Pix\n7 - Cartão"); //abrir como coluna  a ser selecionada
+                int fpag = ler.nextInt();
+                if (fpag == 5){
+                    /*SELECT * FROM saidas
+                    WHERE forma_pagamento = 'Dinheiro'
+                    ORDER BY EXTRACT(MONTH FROM data_hora), EXTRACT(DAY FROM data_hora); */
+                } else if (fpag == 6){
+                    /*SELECT * FROM saidas
+                    WHERE forma_pagamento = 'Pix'
+                    ORDER BY EXTRACT(MONTH FROM data_hora), EXTRACT(DAY FROM data_hora); */
+                } else if (fpag == 7){
+                    /*SELECT * FROM saidas
+                    WHERE forma_pagamento = 'Cartão_debito', forma_pagamento = 'Cartão_credito' >> se der erro em mostrar as duas FP tentar com AND/OR
+                    GROUP BY forma_pagamento
+                    ORDER BY EXTRACT(MONTH FROM data_hora), EXTRACT(DAY FROM data_hora); */
+                }
+                break;
+            case 2:
+                /* SELECT EXTRACT(DAY FROM data_hora) AS 'dia', id, produto_id, nome_produto, preço, quantidade, forma_pagamento FROM saidas
+                GROUP BY forma_pagamento
+                SUM(preço) AS 'Valor total vendido';*/
+                break;
+            case 3:
+                /*SELECT EXTRACT(MONTH FROM data_hora) AS 'Mês', EXTRACT(DAY FROM data_hora) AS 'Dia', id, produto_id, nome_produto, preço, quantidade, forma_pagamento
+                SUM(preço) AS 'Valor total vendido'
+                WHERE EXTRACT(DAY FROM data_hora)
+                    SUM(preço) AS 'Total do dia'
+                FROM saidas
+                GROUP BY forma_pagamento; */
+                break;
+            case 4:
+                /* SELECT EXTRACT(YEAR FROM data_hora) AS 'Ano', EXTRACT(MONTH FROM data_hora) AS 'Mês', id, produto_id, nome_produto, preço, quantidade, forma_pagamento
+                SUM(preço) AS 'Valor total vendido'
+                WHERE EXTRACT(MONTH FROM data_hora)
+                    SUM(preço) AS 'Total do mês'
+                FROM saidas
+                GROUP BY forma_pagamento; */
+                break;
+            default:
+                System.out.println("Entrada inválida.");
+                break;
+        }
     }
 
-    public void main(String[] args){
-        //
+    public static void main(String[] args){
+        Acesso ac = new Acesso();
+        ac.acessar();
     }
 }

@@ -9,7 +9,6 @@ public class Dados {
     Double taxaDeb, taxaCred;
     
     public void pedirPor(){
-        //ler.next();
         System.out.println("Informe os seguintes valores em numero decimal usando ponto, nunca vírgula.");
         System.out.print("Taxa de débito: ");
         taxaDebString = ler.nextLine();
@@ -21,9 +20,21 @@ public class Dados {
         email = ler.nextLine();
         System.out.println("Informações cadastradas.");
     }
-    /*
-    public static void main(String[] args){
-        Dados dd = new Dados();
-        dd.pedirPor();
-    }*/
+
+    public void tabelaDados(){
+        
+        /*CREATE TABLE IF NOT EXISTS Dados (id INTEGER PRIMARY KEY AUTOINCREMENT,
+        taxa_deb DOUBLE, taxa_cred DOUBLE, email TEXT*/
+
+        /*INSERT INTO Dados (taxa_deb, taxa_cred, email)
+         * VALUES (taxaDeb, taxaCred, email)*/
+        //try-catch SQL e se der certo:
+        //System.out.println("Informações cadastradas.");
+    }
+
+    public void main(){
+
+        pedirPor();
+        //tabelaDados();
+    }
 }

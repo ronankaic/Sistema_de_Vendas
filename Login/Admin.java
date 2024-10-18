@@ -5,8 +5,7 @@ public class Admin {
     public String nomeA;
     public int idA;
     public int senhaA;
-    public int quantidadeA = 0; //no máximo 2 administradores >> como por a restrição?
-                           //^ mudar pra 1 pra testar o login mesmo, sem ser o cadastro
+    public int quantidadeA;
 
     public String getNomeA() { return nomeA; }
     public int getIdA() { return idA; }
