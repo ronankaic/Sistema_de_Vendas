@@ -2,6 +2,8 @@ package Login;
 
 import java.util.Scanner;
 import Balanco.Acesso;
+import Venda.Realizacao_venda;
+
 import java.util.InputMismatchException;
 
 public class Main {
@@ -52,7 +54,8 @@ public class Main {
                         System.out.println("7 - Realizar venda\n8 - Balanço de vendas");
                         int opc = ler.nextInt();
                         if (opc == 7){
-                            //chamar programa de realização de vendas
+                            Realizacao_venda rv = new Realizacao_venda();
+                            rv.main(args);
                         } else if (opc == 8){
                             Acesso ac = new Acesso();
                             ac.acessar();

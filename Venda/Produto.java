@@ -1,18 +1,31 @@
 package Venda;
 
 public class Produto {
-    
-    //public int id;
-    public String nome;
-    public float prec;
+    private final int id;
+    private final String nome;
+    private final double preco;
+    private final int quantidade;
 
-    //public int getId() { return id; }
-    public String getNome() { return nome; }
-    public float getPrec() { return prec; }
+    public Produto(int id, String nome, double preco, int quantidade) {
+        this.id = id;
+        this.nome = nome;
+        this.preco = preco;
+        this.quantidade = quantidade;
+    }
 
-    //public void setId(int id) { this.id = id; }
-    public void setNome(String nome) { this.nome = nome; }
-    public void setPrec(float prec) { this.prec = prec; }
+    public int getId() {
+        return this.id;
+    }
 
-    //posso criar mais de uma classe por arquivo?
+    public String getNome() {
+        return this.nome;
+    }
+
+    public double getPreco() {
+        return this.preco;
+    }
+
+    public int getQuantidade() {
+        return this.quantidade;
+    }
 }
