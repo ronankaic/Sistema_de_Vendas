@@ -80,6 +80,7 @@ public class PrimeiroAcessoF {
         */
         //se tiver sucesso:
         //System.out.println("Funcionário cadastrado.");
+        //System.out.println("Qtd de func: "+this.func.quantidadeF+"\n"); >> pegar do BD
     }
 
     public void main(String[] args) {

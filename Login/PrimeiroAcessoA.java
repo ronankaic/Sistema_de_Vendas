@@ -79,6 +79,7 @@ public class PrimeiroAcessoA {
         */
         //se tiver sucesso:
         //System.out.println("Administrador cadastrado.");
+        //System.out.println("Qtd de admins: "+this.ad.quantidadeA+"\n"); >> pegar do BD
     }
 
     public void main(String[] args) {
@@ -93,7 +94,7 @@ public class PrimeiroAcessoA {
         } else {
             System.out.println("Foram encontradas informações cadastradas.");
             System.out.printf("Taxa de débito: "+dd.taxaDeb+"\nTaxa de crédito: "+dd.taxaCred+"\nEmail para pix: ", dd.email); //importar os valores do BD
-            System.out.println("Deseja sobrescrevê-las?");
+            System.out.println("\nDeseja sobrescrevê-las?");
             char sobr = ler.next().charAt(0);
             if (sobr == 's'){ //botão
                 dd.main();

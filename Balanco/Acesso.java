@@ -35,8 +35,7 @@ public class Acesso {
         
         /*comando para realizar a consulta de todas as vendas
          *  SELECT * saidas
-            GROUP BY forma_pagamento
-            ORDER BY EXTRACT(MONTH FROM data_hora) AS 'mês', EXTRACT(DAY FROM data_hora) AS 'dia';
+            ORDER BY ano, mes, dia;
         */
 
         System.out.println("Como deseja filtrar o balanço?");
@@ -50,38 +49,52 @@ public class Acesso {
                 if (fpag == 5){
                     /*SELECT * FROM saidas
                     WHERE forma_pagamento = 'Dinheiro'
-                    ORDER BY EXTRACT(MONTH FROM data_hora), EXTRACT(DAY FROM data_hora); */
+                    ORDER BY ano, mes, dia; */
                 } else if (fpag == 6){
                     /*SELECT * FROM saidas
                     WHERE forma_pagamento = 'Pix'
-                    ORDER BY EXTRACT(MONTH FROM data_hora), EXTRACT(DAY FROM data_hora); */
+                    ORDER BY ano, mes, dia; */
                 } else if (fpag == 7){
                     /*SELECT * FROM saidas
-                    WHERE forma_pagamento = 'Cartão_debito', forma_pagamento = 'Cartão_credito' >> se der erro em mostrar as duas FP tentar com AND/OR
-                    GROUP BY forma_pagamento
-                    ORDER BY EXTRACT(MONTH FROM data_hora), EXTRACT(DAY FROM data_hora); */
+                    WHERE forma_pagamento = 'Cartão'
+                    ORDER BY ano, mes, dia; */
                 }
                 break;
             case 2:
-                /* SELECT EXTRACT(DAY FROM data_hora) AS 'dia', id, produto_id, nome_produto, preço, quantidade, forma_pagamento FROM saidas
-                GROUP BY forma_pagamento
-                SUM(preço) AS 'Valor total vendido';*/
+                System.out.println("Entre o dia desejado"); //campo de escrita
+                int dia_selecionado = ler.nextInt();
+                //try
+                /*SELECT * from saidas
+                where dia = dia_selecionado
+                ORDER BY ano, mes, dia, forma_pagamento;*/
+                System.out.println("O valor total vendido no dia foi de: "); //+valorTotal
+                //catch (exception: tal dia não existe no bd){
+                //sout("Dia sem entradas")
+                //}
                 break;
             case 3:
-                /*SELECT EXTRACT(MONTH FROM data_hora) AS 'Mês', EXTRACT(DAY FROM data_hora) AS 'Dia', id, produto_id, nome_produto, preço, quantidade, forma_pagamento
-                SUM(preço) AS 'Valor total vendido'
-                WHERE EXTRACT(DAY FROM data_hora)
-                    SUM(preço) AS 'Total do dia'
-                FROM saidas
-                GROUP BY forma_pagamento; */
+                System.out.println("Entre o mês desejado"); //campo de escrita
+                int mes_selecionado = ler.nextInt(); //coluna de seleção
+                //try:
+                /*SELECT id, id_produto, nome_produto, preco, forma_pagamento, quantidade, mes, ano from saidas
+                WHERE mes = mes_selecionado
+                ORDER BY ano, mes, forma_pagamento */
+                System.out.println("O valor total vendido no mês foi de: "); //+valorTotal
+                //catch (exception: tal mês não existe no bd){
+                //sout("Mês sem entradas")
+                //}
                 break;
             case 4:
-                /* SELECT EXTRACT(YEAR FROM data_hora) AS 'Ano', EXTRACT(MONTH FROM data_hora) AS 'Mês', id, produto_id, nome_produto, preço, quantidade, forma_pagamento
-                SUM(preço) AS 'Valor total vendido'
-                WHERE EXTRACT(MONTH FROM data_hora)
-                    SUM(preço) AS 'Total do mês'
-                FROM saidas
-                GROUP BY forma_pagamento; */
+            System.out.println("Entre o ano desejado"); //campo de escrita
+            int ano_selecionado = ler.nextInt(); //coluna de seleção
+            //try:
+            /*SELECT id, id_produto, nome_produto, preco, forma_pagamento, quantidade, mes, ano from saidas
+            WHERE mes = ano_selecionado
+            ORDER BY ano, mes, forma_pagamento */
+            System.out.println("O valor total vendido no ano foi de: "); //+valorTotal
+            //catch (exception: tal ano não existe no bd){
+            //sout("Ano sem entradas")
+            //}
                 break;
             default:
                 System.out.println("Entrada inválida.");

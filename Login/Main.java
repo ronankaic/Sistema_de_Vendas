@@ -8,7 +8,10 @@ import java.util.InputMismatchException;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception{
+    public Main() {
+    }
+
+    public static void main(String[] args){
 
         Scanner ler = new Scanner(System.in);
 

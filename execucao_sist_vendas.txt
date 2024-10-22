@@ -1,0 +1,4 @@
+@echo off
+set CLASSPATH=C:Sistema_de_Vendas\Sistema_de_Vendas.jar;Sistema_de_Vendas\sqlite-jdbc-3.46.1.3.jar;Sistema_de_Vendas\produtos.db;Sistema_de_Vendas\saída.db
+java -cp %CLASSPATH% Main
+pause
