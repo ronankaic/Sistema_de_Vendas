@@ -8,7 +8,7 @@ public class PrimeiroAcessoA {
     Admin ad = new Admin();
     Funcionario func = new Funcionario();
     Scanner ler = new Scanner(System.in);
-    
+
     public void setIdA(){
         Random rand = new Random();
         int limite = 100000; // gera um inteiro aleatório entre 0 e 100.000
@@ -44,7 +44,7 @@ public class PrimeiroAcessoA {
         if (VerLoginA.equals(ad.nomeA) && VerSenhaA == ad.senhaA){
 
             System.out.println("Login e senha verificados.");
-            
+
         } else if (!VerLoginA.equals(ad.nomeA) || VerSenhaA != ad.senhaA){
 
             System.out.println("\nLogin ou senha incorretos.");
@@ -76,7 +76,7 @@ public class PrimeiroAcessoA {
 
         /*INSERT INTO Admin (id, nome, senha)
          * VALUES (ad.idA, ad.nomeA, ad.senhaA)
-        */
+         */
         //se tiver sucesso:
         //System.out.println("Administrador cadastrado.");
         //System.out.println("Qtd de admins: "+this.ad.quantidadeA+"\n"); >> pegar do BD

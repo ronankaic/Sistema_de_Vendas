@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -17,7 +18,9 @@ public class Realizacao_venda {
     private static final String URL_SAIDA;
     private static final Scanner scanner;
     private static final List<Produto> carrinho;
-
+    private int ano;
+    private int mes;
+    private int dia;
 
     public void main(String[] args) {
         try {
@@ -28,9 +31,9 @@ public class Realizacao_venda {
             if (connProdutos != null && connSaida != null) {
                 boolean continuar = true;
 
-                while(true) {
+                while (true) {
                     label55:
-                    while(continuar) {
+                    while (continuar) {
                         limparTerminal();
                         System.out.println("Escolha uma opção:");
                         System.out.println("1. Listar produtos");
@@ -68,11 +71,12 @@ public class Realizacao_venda {
                                         System.out.println("E-mail para pagamento via Pix: sandrasxr123@gmail.com");
                                     }
 
-                                    registrarSaida(connSaida, carrinho, total, formaPagamento);
+
+                                    registrarSaida(connSaida, carrinho, total, formaPagamento, ano, mes, dia);
                                     carrinho.clear();
                                     boolean voltar = true;
 
-                                    while(true) {
+                                    while (true) {
                                         if (!voltar) {
                                             continue label55;
                                         }
@@ -120,7 +124,7 @@ public class Realizacao_venda {
     }
 
     private static void criarTabelaSaida(Connection conn) {
-        String sql = "CREATE TABLE IF NOT EXISTS saidas (id INTEGER PRIMARY KEY AUTOINCREMENT, produto_id INTEGER, nome_produto TEXT, preco REAL, quantidade INTEGER, forma_pagamento TEXT, data_hora DATE DEFAULT CURRENT_DATE);";
+        String sql = "CREATE TABLE IF NOT EXISTS saidas (id INTEGER PRIMARY KEY AUTOINCREMENT, produto_id INTEGER, nome_produto TEXT, preco REAL, quantidade INTEGER, forma_pagamento TEXT, ano INTERGER, mes INTERGER, dia INTERGER);";
 
         try {
             Statement stmt = conn.createStatement();
@@ -162,7 +166,7 @@ public class Realizacao_venda {
                 try {
                     System.out.println("Lista de produtos:");
 
-                    while(rs.next()) {
+                    while (rs.next()) {
                         int id = rs.getInt("id");
                         String nome = rs.getString("nome");
                         double preco = rs.getDouble("preco");
@@ -296,8 +300,8 @@ public class Realizacao_venda {
         listarProdutos(conn);
         boolean continuar = true;
 
-        while(true) {
-            while(continuar) {
+        while (true) {
+            while (continuar) {
                 System.out.print("Digite o ID do produto que deseja adicionar ao carrinho (ou 0 para finalizar): ");
                 int idProduto = scanner.nextInt();
                 if (idProduto == 0) {
@@ -443,8 +447,8 @@ public class Realizacao_venda {
         double total = 0.0;
 
         Produto produto;
-        for(Iterator var3 = carrinho.iterator(); var3.hasNext(); total += produto.getPreco() * (double)produto.getQuantidade()) {
-            produto = (Produto)var3.next();
+        for (Iterator var3 = carrinho.iterator(); var3.hasNext(); total += produto.getPreco() * (double) produto.getQuantidade()) {
+            produto = (Produto) var3.next();
         }
 
         return total;
@@ -452,7 +456,7 @@ public class Realizacao_venda {
 
     private static String escolherFormaPagamento() {
         limparTerminal();
-        System.out.printf("Total: %.2f%n" , calcularTotal(carrinho));
+        System.out.printf("Total: %.2f%n", calcularTotal(carrinho));
         System.out.println("Escolha a forma de pagamento:");
         System.out.println("1. Dinheiro");
         System.out.println("2. Pix");
@@ -490,8 +494,13 @@ public class Realizacao_venda {
         return total;
     }
 
-    private static void registrarSaida(Connection conn, List<Produto> carrinho, double total, String formaPagamento) {
-        String sql = "INSERT INTO saidas (produto_id, nome_produto, preco, quantidade, forma_pagamento) VALUES (?, ?, ?, ?, ?)";
+    private static void registrarSaida(Connection conn, List<Produto> carrinho, double total, String formaPagamento, int ano, int mes, int dia) {
+        LocalDate dataAtual = LocalDate.now();
+        ano = dataAtual.getYear();
+        mes = dataAtual.getMonthValue();
+        dia = dataAtual.getDayOfMonth();
+
+        String sql = "INSERT INTO saidas (produto_id, nome_produto, preco, quantidade, forma_pagamento, ano, mes, dia) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -499,19 +508,23 @@ public class Realizacao_venda {
             try {
                 Iterator var7 = carrinho.iterator();
 
-                while(true) {
+                while (true) {
                     if (!var7.hasNext()) {
                         pstmt.executeBatch();
                         System.out.println("Compra registrada com sucesso!");
                         break;
                     }
 
-                    Produto produto = (Produto)var7.next();
+
+                    Produto produto = (Produto) var7.next();
                     pstmt.setInt(1, produto.getId());
                     pstmt.setString(2, produto.getNome());
                     pstmt.setDouble(3, produto.getPreco());
                     pstmt.setInt(4, produto.getQuantidade());
                     pstmt.setString(5, formaPagamento);
+                    pstmt.setInt(6, ano);
+                    pstmt.setInt(7, mes);
+                    pstmt.setInt(8, dia);
                     pstmt.addBatch();
                 }
             } catch (Throwable var10) {
@@ -536,7 +549,7 @@ public class Realizacao_venda {
 
     }
 
-    private static void listarSaidas(Connection conn) {
+    public static void listarSaidas(Connection conn) {
         String sql = "SELECT * FROM saidas;";
 
         try {
@@ -548,14 +561,16 @@ public class Realizacao_venda {
                 try {
                     System.out.println("Lista de saídas:");
 
-                    while(rs.next()) {
+                    while (rs.next()) {
                         int id = rs.getInt("id");
                         String nomeProduto = rs.getString("nome_produto");
                         double preco = rs.getDouble("preco");
                         int quantidade = rs.getInt("quantidade");
                         String formaPagamento = rs.getString("forma_pagamento");
-                        String dataHora = rs.getString("data_hora");
-                        System.out.printf("ID: %d, Produto: %s, Preço: %.2f, Quantidade: %d, Forma de Pagamento: %s, Data: %s%n", id, nomeProduto, preco, quantidade, formaPagamento, dataHora);
+                        int dia = rs.getInt("dia");
+                        int mes = rs.getInt("mes");
+                        int ano = rs.getInt("ano");
+                        System.out.printf("ID: %d, Produto: %s, Preço: %.2f, Quantidade: %d, Forma de Pagamento: %s, Data:  %d/%d/%d%n", id, nomeProduto, preco, quantidade, formaPagamento, dia, mes, ano);
                     }
                 } catch (Throwable var13) {
                     if (rs != null) {

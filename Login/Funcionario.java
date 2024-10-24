@@ -1,7 +1,8 @@
 package Login;
 
+
 public class Funcionario {
-    
+
     public String nomeF;
     public int idF;
     public int senhaF;
@@ -16,4 +17,5 @@ public class Funcionario {
     public void setIdF(int idF) { this.idF = idF; }
     public void setSenhaF(int senhaF) { this.senhaF = senhaF; }
     public void setQuantidadeF(int quantidadeF) { this.quantidadeF = quantidadeF; }
+
 }
