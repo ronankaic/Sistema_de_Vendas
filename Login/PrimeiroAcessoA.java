@@ -99,7 +99,7 @@ public class PrimeiroAcessoA {
             if (sobr == 's'){ //botão
                 dd.main();
             } else if (sobr == 'n'){
-                System.out.println("Ok, as informações serão mantidas.");
+                System.out.println("Ok, as informações serão mantidas.\n");
             }
         }
     }

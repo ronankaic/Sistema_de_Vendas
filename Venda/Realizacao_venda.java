@@ -18,8 +18,6 @@ public class Realizacao_venda {
     private static final Scanner scanner;
     private static final List<Produto> carrinho;
 
-    public Realizacao_venda() {
-    }
 
     public void main(String[] args) {
         try {
